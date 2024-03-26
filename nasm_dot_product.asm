@@ -20,7 +20,7 @@ dot:
     movsd xmm1, [r8 + rbx]
     mulsd xmm1, [rdx + rbx]
     addsd xmm0, xmm1
-    add rbx, 8;
+    add rbx, 8
     loop dot
 
     ret

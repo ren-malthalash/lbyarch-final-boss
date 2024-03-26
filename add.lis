@@ -1,8 +1,0 @@
-     1                                  section .text
-     2                                  global _add
-     3                                  _add:
-     4                                      ;write your code here
-     5 00000000 4831C0                      xor rax, rax
-     6 00000003 4801FE                      add rsi, rdi
-     7 00000006 4889F0                      mov rax, rsi
-     8 00000009 C3                          ret

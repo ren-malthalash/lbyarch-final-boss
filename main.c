@@ -12,8 +12,8 @@ int main() {
     double VectorA[n];
     double VectorB[n];
 
-    memset(VectorA, 0.0f, n*sizeof(double));
-    memset(VectorB, 0.0f, n*sizeof(double));
+    memset(VectorA, 1, n*sizeof(double));
+    memset(VectorB, 1, n*sizeof(double));
 
     VectorA[0] = 1.0;
     VectorA[1] = 2.0;
@@ -26,10 +26,10 @@ int main() {
     printf("%p\n", &VectorA);
     printf("%p\n", &VectorB);
 
-    printf("Hello World: %.2f\n", dot_product(3, VectorA, VectorB));
+    printf("C\t: %.2f\n", dot_product(3, VectorA, VectorB));
 
 
-    printf("Hello World: %.2f\n", nasm_dot_product(3, VectorA, VectorB));
+    printf("NASM\t: %.2f\n", nasm_dot_product(3, VectorA, VectorB));
 
     getchar();
 
