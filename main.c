@@ -4,6 +4,7 @@
 #include "kernel.h"
 
 extern double nasm_dot_product(int, double *, double *);
+extern void* nasm_read_p(void *);
 
 int main() {
 
@@ -28,6 +29,8 @@ int main() {
 
     printf("C\t: %.2f\n", dot_product(3, VectorA, VectorB));
 
+    printf("%p\n", nasm_read_p(&VectorA));
+    printf("%p\n", nasm_read_p(&VectorB));
 
     printf("NASM\t: %.2f\n", nasm_dot_product(3, VectorA, VectorB));
 

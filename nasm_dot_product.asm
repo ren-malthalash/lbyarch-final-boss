@@ -1,26 +1,30 @@
 BITS 64
 
-; rdi
-; rsi
+; rcx
 ; rdx
+; r8
 
 section .data
 
 section .text
 extern printf
-
+global nasm_read_p
 global nasm_dot_product
 nasm_dot_product:
     ; rdx VectorA
     ; r8 VectorB
-    mov rcx, rsi
+    ; mov rcx, rcx
     xor rbx, rbx
 
 dot:
-    movsd xmm1, [r8 + rbx]
-    mulsd xmm1, [rdx + rbx]
+    movsd xmm1, [rdx + rbx]
+    mulsd xmm1, [r8 + rbx]
     addsd xmm0, xmm1
     add rbx, 8
     loop dot
 
+    ret
+
+nasm_read_p:
+    mov rax, rcx
     ret
