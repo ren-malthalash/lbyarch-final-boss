@@ -4,31 +4,25 @@
 #include <string.h>
 #include <float.h>
 #include "kernel.h"
-
-//CHANGE THIS VALUE TO ADJUST VECTOR SIZE
-//for reference:
-//2^20 = 1048576
-//2^24 = 16777216
-//2^30 = 1073741824
-#define V_SIZE 20
 #define N_LOOPS 30
 
 extern double nasm_dot_product(int, double*, double*);
 extern void* nasm_read_p(void*);
 
-void randomVectors(long double VectorA[], double VectorB[]) {
+void randomVectors(long double VectorA[], double VectorB[], int V_SIZE) {
     int i;
+    srand(time(0));
     for (i = 0; i < V_SIZE; i++) {
-
-        VectorA[i] = 1.0;
-        VectorB[i] = 1.0;
+        float random = (float)rand() / (float)(RAND_MAX);
+        VectorA[i] = random;
+        VectorB[i] = random;
     }
     return;
 }
 
+void run_test(int V_SIZE, double* run_c, double* run_asm) {
+    
 
-
-int main(int number) {
     double* VectorA = (double*)malloc(V_SIZE * sizeof(double));
     double* VectorB = (double*)malloc(V_SIZE * sizeof(double));
 
@@ -40,7 +34,7 @@ int main(int number) {
     clock_t end = -1;
 
 
-    randomVectors(VectorA, VectorB);
+    randomVectors(VectorA, VectorB, V_SIZE);
 
     
     printf("%p\n", &VectorA);
@@ -54,7 +48,7 @@ int main(int number) {
     while (count_c < N_LOOPS) {
         //start timer
         start = clock();
-        printf("C Run #%d \t: %.2f \n", count_c + 1, dot_product(V_SIZE, VectorA, VectorB));
+        printf("C Run #%d \t: %.2f \t", count_c + 1, dot_product(V_SIZE, VectorA, VectorB));
         //end timer
         end = clock();
         printf("Time\t\t: %.10lf\n", ((double)(end - start)) / CLOCKS_PER_SEC);
@@ -74,7 +68,7 @@ int main(int number) {
     while (count_asm < N_LOOPS) {
         //start timer
         start = clock();
-        printf("ASM Run #%d \t: %.2f \n", count_asm + 1, nasm_dot_product(V_SIZE, VectorA, VectorB));
+        printf("ASM Run #%d \t: %.2f \t", count_asm + 1, nasm_dot_product(V_SIZE, VectorA, VectorB));
         //end timer
         end = clock();
         printf("Time\t\t: %.10lf\n", ((double)(end - start)) / CLOCKS_PER_SEC);
@@ -84,11 +78,30 @@ int main(int number) {
         count_asm = count_asm + 1;
     }
 
-    printf("Average Time (C):\t%.10lf seconds\n", C_time / N_LOOPS);
-    printf("Average Time (NASM):\t%.10lf seconds\n", ASM_time / N_LOOPS);
-
-    getch();
-
-    return 0;
+    *run_c = C_time / N_LOOPS;
+    *run_asm = ASM_time / N_LOOPS;
 }
 
+int main() {
+    //2^20 = 1048576
+    //2^24 = 16777216
+    //2^28 = 268435456
+    double run1_c, run1_asm;
+    double run2_c, run2_asm;
+    double run3_c, run3_asm;
+
+    run_test(1048576, &run1_c, &run1_asm);
+    run_test(16777216,&run2_c, &run2_asm);
+    run_test(268435456, &run3_c, &run3_asm);
+
+    printf("-----------------------------------------------------------------------------------\n");
+    printf("Results:\n");
+    printf("-----------------------------------------------------------------------------------\n");
+    printf("Vector Size\tC Average Time (s)\tASM Average Time (s)\n");
+    printf("2^20       \t%.10lf\t\t%.10lf\n", run1_c, run1_asm);
+    printf("2^24       \t%.10lf\t\t%.10lf\n", run2_c, run2_asm);
+    printf("2^28       \t%.10lf\t\t%.10lf\n\n", run3_c, run3_asm);
+
+    getch();
+    return 0;
+}
