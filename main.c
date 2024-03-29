@@ -87,6 +87,8 @@ int main(int number) {
     printf("Average Time (C):\t%.10lf seconds\n", C_time / N_LOOPS);
     printf("Average Time (NASM):\t%.10lf seconds\n", ASM_time / N_LOOPS);
 
+    getch();
+
     return 0;
 }
 
