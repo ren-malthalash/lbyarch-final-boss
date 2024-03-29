@@ -11,7 +11,7 @@
 //2^24 = 16777216
 //2^30 = 1073741824
 #define V_SIZE 20
-#define N_LOOPS 1
+#define N_LOOPS 30
 
 extern double nasm_dot_product(int, double*, double*);
 extern void* nasm_read_p(void*);
