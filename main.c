@@ -9,7 +9,7 @@
 extern double nasm_dot_product(int, double*, double*);
 extern void* nasm_read_p(void*);
 
-void randomVectors(long double VectorA[], double VectorB[], int V_SIZE) {
+void randomVectors(double VectorA[], double VectorB[], int V_SIZE) {
     int i;
     srand(time(0));
     for (i = 0; i < V_SIZE; i++) {
@@ -102,6 +102,5 @@ int main() {
     printf("2^24       \t%.10lf\t\t%.10lf\n", run2_c, run2_asm);
     printf("2^28       \t%.10lf\t\t%.10lf\n\n", run3_c, run3_asm);
 
-    getch();
     return 0;
 }
