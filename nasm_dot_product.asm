@@ -5,6 +5,7 @@ BITS 64
 ; r8
 
 section .data
+zero dq 0.0
 section .text
 extern printf
 global nasm_read_p

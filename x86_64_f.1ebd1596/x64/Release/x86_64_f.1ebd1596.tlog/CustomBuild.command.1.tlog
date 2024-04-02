@@ -1,0 +1,2 @@
+^C:\USERS\JOSHA\SOURCE\REPOS\X86_64_FINAL_PROJECT\NASM_DOT_PRODUCT.ASM
+c:\nasm\nasm -f win64 nasm_dot_product.asm
